@@ -57,6 +57,7 @@ def save_frame(image, angle, speed, tag):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
     filename = f"{tag}_{timestamp}.png"
     filepath = os.path.join(image_dir, filename)
+    rel_filepath = os.path.join(IMAGE_DIR, filename)
 
     image_bgr = cv2.cvtColor(image, cv2.COLOR_BGRA2BGR)
     cropped = apply_roi(image_bgr)
@@ -65,7 +66,7 @@ def save_frame(image, angle, speed, tag):
 
     with open(csv_file, 'a', newline='') as f:
         writer = csv.writer(f)
-        writer.writerow([filepath, round(angle, 4), round(speed, 2), timestamp, tag])
+        writer.writerow([rel_filepath, round(angle, 4), round(speed, 2), timestamp, tag])
 
     return 1
 
